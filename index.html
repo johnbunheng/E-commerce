@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<style>
+    .hide{
+        display: none;
+    }
+    .show{
+        display: block ;
+        display: flex;
+        justify-content: center;
+    }
+    .logshow{
+        display: flex;
+        justify-content:end;
+        display: block ; 
+    }
+    .errorshow{
+        display: block;
+    }
+  
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .nav-left > div {
+                width: 100%;
+                justify-content: space-between;
+            }
+            #search {
+                max-width: 100%;
+            }
+            .sibar-content {
+                width: 100%;
+            }
+            .option {
+                flex-direction: column;
+                align-items: center;
+            }
+            .option select {
+                width: 100%;
+                max-width: none;
+            }
+            .sort-by {
+                width: 100%;
+                text-align: center;
+            }
+            .sort-by select {
+                width: 100%;
+                max-width: none;
+            }
+            .card {
+                grid-template-columns: 1fr;
+            }
+            .popup-content {
+                flex-direction: column;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            .footer ul {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.5rem;
+            }
+            .nav-left > div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .login {
+                padding: 1rem;
+            }
+            .popup-content {
+                padding: 1rem;
+            }
+            .popup-content img {
+                max-width: 12rem;
+            }
+            .small-img img {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+</style>
+<body id="body">
+   <div class="container bg-slate-200">
+
+        <!-- navbar -->
+
+        <div class="navbar bg-sky-950 h-20 justify-between text-lime-50 sticky top-0 ">
+            <div class="nav-left flex justify-around text-center items-center">
+                <div class=" w-96 flex justify-between text-center items-center p-5">
+                    <i class="fa-solid fa-bars text-2xl mr-5 cursor-pointer" id="sibar"></i>
+                    <h3 class="text-yellow-500 mr-5 text-xl">ShopeWinn</h3>
+                    <input type="search" name="search" placeholder="search here..." id="search" class="p-4 h-8 rounded-2xl outline-none text-black cursor-default ">
+                </div>
+                <div class="w-96 flex justify-between text-center items-center p-5">
+                    <p  ><i class="fa-solid fa-bolt"></i> Order now and get it with in <span class="text-yellow-400">15 mint!</span></p>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-user cursor-pointer" id="user"></i>
+                </div>
+            </div>
+        </div>
+        <!-- sibar -->
+         <div class="fixed w-64 h-full bg-sky-950 text-center  hidden" id="sibarcontent">
+            <ul class=" w-64 text-lime-50 justify-items-start p-5 space-y-3">
+                <li><a href="" class="hover:underline"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-brands fa-font-awesome"></i> About</a></li>
+                <li><a href="product.html" class="hover:underline"><i class="fa-brands fa-product-hunt"></i> Product</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-solid fa-bell-concierge"></i> Service</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-solid fa-bars-progress"></i> Management</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-solid fa-inbox"></i> Contact</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-regular fa-envelope"></i> Message</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-regular fa-circle-user"></i> Customer</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-solid fa-gear"></i> Setting</a></li>
+                <li><a href="" class="hover:underline"><i class="fa-regular fa-clipboard"></i> Report</a></li>
+            </ul>
+            <p class="text-yellow-400 mt-48">© 2025 ShopeWinn Labs Col.TD <br>John Bunheng</p>
+         </div>
+
+        <!-- login -->
+         
+        <div class=" flex justify-end mr-10 mt-4 ">
+            <div class="login bg-white p-8 rounded-lg shadow-lg w-full max-w-sm fixed hidden ">
+                <h2 class="text-3xl font-bold mb-6 text-sky-950">Log in</h2>
+                <form class="space-y-6">
+                <input
+                    onkeyup="confirmu()"
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+                <p id="erroru" class="text-red-500 absolute top-28 hidden ">Please Input username</p>
+                <input
+                    onkeyup="confirmp()"
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+                <p id="errorp" class="text-red-500 absolute top-44 hidden">Please Input password</p>
+                <button
+                    id="submit"
+                    type="submit"
+                    class="w-full bg-sky-950 hover:bg-sky-950 text-white font-semibold py-2 rounded-md transition"
+                >
+                    Log in
+                </button>
+                </form>
+                <p class="text-center text-gray-600 mt-4">
+                or, <a href="" class="font-semibold underline hover:text-cyan-700">sign up</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- slide -->
+
+        <div class="image flex justify-center mt-6 ">
+            <img src="img/5" alt="" class="w-4/5 h-96 object-cover rounded-2xl  sm:w-96">
+        </div>
+
+        <!-- content -->
+        <h1 class="font-semibold ml-40 pt-4 text-xl">Gromuse/ All category</h1>
+
+        <div class="w-5/5 flex justify-between">
+            <div class="option ml-36 p-3 font-sans w-2/4 flex justify-between ">
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="" >All Category</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">Price</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">Review</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">Color</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">Material</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">Offer</option>
+                </select>
+                <select value="" class="rounded-3xl p-2 border-2 border-yellow-400">
+                    <option value="">All Filters</option>
+                </select>
+            </div>
+            <div class="mr-36 p-3" class="rounded-2xl p-2 border-2 border-yellow-400">
+                <select value="" class="rounded-3xl p-2 border-2 border-black">
+                    <option value="">Sort by</option>
+                </select>
+            </div>
+        </div>
+        <!-- card -->
+        <div class="card w-4/5 ml-36 pl-4 flex justify-between mt-5 cursor-pointer">
+          
+        <!-- content -->
+        </div>
+      
+        <div class="popup hidden fixed w-full h-full top-0 left-0 items-center  bg-black bg-opacity-40">
+           
+            <div class=" flex justify-between  p-10 absolute w-3/5 h-3/5 rounded-2xl bg-gray-500 ">
+                <div class="image mr-3">
+                    <div class="big-img">
+                        <img src="img/1" alt="" id="popup-main-img" class="w-64 rounded-2xl object-contain">
+                    </div>
+                    <div class="small-img flex justify-evenly ml-4">
+                        <div class="w-20">
+                            <img src="img/1" id="thumb1" alt="" class="thumb rounded-2xl w-16 h-16 mt-2">
+                        </div>
+                        <div class="w-20">
+                            <img src="img/1" id="thumb2" alt="" class="thumb rounded-2xl w-16 h-16 mt-2">
+                        </div>
+                        <div class="w-20">
+                            <img src="img/1" id="thumb3" alt="" class="thumb rounded-2xl w-16 h-16 mt-2">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content text-center">
+                    <h3 class="text-yellow-400 text-3xl" id="name"></h3>
+                    <p id="popup-desc" class="text-lime-50"></p>
+                    <h1 class="text-2xl font-bold font-serif text-yellow-400">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </h1>
+                    <h1 id="popup-price" class="text-lime-50 text-2xl">5.00$</h1>
+                    <div class="btn mt-5 w-64  flex justify-between m-auto">
+                        <button class=" border-2 border-sky-950  w-56 h-8 text-sm m-2 hover:bg-sky-950 hover:text-lime-50">Add to Card</button>
+                        <button class="bg-yellow-400 w-56 h-8  text-sm m-2">Buy Now</button>
+                    </div>
+                    <p class="text-yellow-400 decoration-1 underline mt-5 cursor-pointer"><i class="fa-regular fa-heart"></i> Add to wishlish</p>
+                </div>
+                <i class="fa-solid fa-xmark text-yellow-400 -m-5 text-2xl cursor-pointer" id="concel"></i>
+            </div>
+        </div>
+
+        
+        <p class="text-center text-lg p-5 text-sky-900 "><a class="hover:underline" href="product.html">Click to see more....!</a></p>
+
+        <div class="footer w-full h-64 bg-sky-950 mt-10">
+            <ul class=" p-5 flex justify-evenly text-yellow-400">
+                <li>ShopeWinn-Ecommerce
+                    <ul class="mt-4 text-lime-50 font-mono">
+                        <hr class="p-2 w-28">
+                        <li>Quality Shop in Khmer</li>
+                        <li>Chaping 1.00$ upper</li>
+                        <li>Number One of Cambodia</li>
+                        <li>Have More iteim....</li>
+                        <li>More and More</li>
+                    </ul>
+                </li>
+                <li>Quick Link
+                    <ul class="mt-4 text-lime-50">
+                        <hr class="p-2 w-28">
+                        <li><a href="">Facebook</a></li>
+                        <li><a href="">Telegram</a></li>
+                        <li><a href="">Instargram</a></li>
+                        <li><a href="">TikTok</a></li>
+                    </ul>
+                </li>
+                <li>Shop Now
+                    <ul class="mt-4 text-lime-50">
+                        <hr class="p-2 w-28">
+                        <li><a href="">Vegetable</a></li>
+                        <li><a href="">Drink</a></li>
+                        <li><a href="">Spices</a></li>
+                        <li><a href="">Meat</a></li>
+                    </ul>
+                </li>
+                <li>Contact Us
+                    <ul class="mt-4 text-lime-50">
+                        <hr class="p-2 w-28">
+                        <li><i class="fa-solid fa-phone"></i> 088 99 69 560</li>
+                        <li><i class="fa-solid fa-envelope"></i> <a href="">choujohn002@gmail.com</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="text-center w-full h-16 bg-black text-yellow-400">
+                <p>Copyright © 2025 ShopeWinn Labs Col.TD</p>
+                <p>Develope by Johh Bunheng</p>
+            </div>
+        </div>
+   </div>
+
+   <script src="main.js"></script>
+   <script src="https://accounts.google.com/gsi/client"></script>
+</body>
+</html>
